@@ -52,4 +52,4 @@ In the inverse parameter identification, open-source DIC software and VIC-2D are
 If you wish to contribute code/algorithms to this project, or have any question or suggestion, please contact Bin Chen via binchen@kth.se. 
 
 ## Citation
-Anyone who uses the code please cite: "Bin Chen, Sam Coppieters., Finite element model updating for identifying material parameters in constitutive models: a review (Draft)". If you need to redistribute the software, please keep the original author information.
+Anyone who uses the code please cite: "Bin Chen, Bojan Starman, Miroslav Halilovič, Lars A.Berglund, Sam Coppieters., Finite Element Model Updating for Material Model: Review and Practice Guide (Draft)". If you need to redistribute the software, please keep the original author information.
