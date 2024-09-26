@@ -80,7 +80,7 @@ The DIC software has the following major features:
 <p align="middle">
   <img src="Figure/DIC.jpg" height="300" />
 </p>
-<center>Figure 1. Example of DIC matching.</center>
+<p style="text-align:center;">Figure 1. Example of DIC matching.</p>
 
 ### Usage
 1. Download this project and unzip it into a folder;
@@ -148,35 +148,36 @@ Img_Simu_0001.bmp is matching...
   <p align="middle">
     <img src="Figure/DIC results explanation.jpg" height="250" />
   </p>
-    <center>Figure 2. DIC results explanation.</center>
+<p style="text-align:center;">Figure 2. DIC results explanation.</p>
 
 ***
 ## FEMU software
 1. The FEA solver used herein is COMSOL Multiphysics. The FEA project should be built in COMSOL.
    ![DIC](Figure/Comsol.jpg) 
-    <center>Figure 3. COMSOL interface.</center>
-2. First prepare the DIC results. The file could either from our open-source software. As mentioned before. The data files from VIC-2D (commercial software from Correlated solution) and MatchID-2D are also acceptable as the input. All data should be in global coordinate system instead of material coordinate system.
+<p style="text-align:center;">Figure 3. COMSOL interface.</p>
+
+1. First prepare the DIC results. The file could either from our open-source software. As mentioned before. The data files from VIC-2D (commercial software from Correlated solution) and MatchID-2D are also acceptable as the input. All data should be in global coordinate system instead of material coordinate system.
    - **VIC-2D file**: should be saved as ``.mat`` file. Please don't exclude any data when exporting the data;
    - **MatchID-2D file**: should be saved as ``.csv`` file. The data should be saved in column. The data from 1-7 column should be X, Y, U, V, exx, eyy, exy;
-3. The DIC data file from commercial software should be convert to an acceptable format. Please run script ``Data_Converter_MAIN.m``
+2. The DIC data file from commercial software should be convert to an acceptable format. Please run script ``Data_Converter_MAIN.m``
   - ``software``: select either ``'VIC'`` or ``'MatchID'``
   - ``folderName``: The folder where you save your DIC data.
   - ``scale``: The data should be saved in unit of ``pixel``. Therefore, you need to specify the scale information.
   - ``dataformat``: Here we use ``mat`` for VIC-2D and ``csv`` for MatchID.
   - The reformated data will be saved in a subfolder ``folerName/formatVICData``. All file will be saved as the same file name but in the subfolder. Besides that, some key parameter in DIC are saved in ``Params.mat`` in the same subfolder.
-4. The mesh in COMSOL should be exported with format of ``.nas``. Save it at a certain folder and remember the file path. Please rename the mesh as ``Mesh.nas``. 
-5. A key issue is the communication between COMSOL and MATLAB. To do that, we need to:
+3. The mesh in COMSOL should be exported with format of ``.nas``. Save it at a certain folder and remember the file path. Please rename the mesh as ``Mesh.nas``. 
+4. A key issue is the communication between COMSOL and MATLAB. To do that, we need to:
   - Prepare the COMSOL project.
   - Right click ``Export`` in COMSOL and export ``Data``. Choose ``solid.elogxx``, ``solid.elogxy``, and ``solid.elogyy`` in the folder. Select one more folder and export ``u``, ``v``. 
   <p align="middle">
     <img src="Figure/ExportDataComsol.jpg" height="300" />
   </p>
-    <center>Figure 4. Data exporting in COMSOL.</center>
-   
+<p style="text-align:center;">Figure 4. Data exporting in COMSOL.</p>
+
    - Save the COMSOL project as a MATLAB script ``.m``.
    - Please check ``Orthotropic_model_demo.m`` carefully. You need to make some modification on this file. Please see all parameters passed through ``Params_FEMU``. You can learn how to implement this by comparing two scripts ``Orthotropic_model_demo.m`` and ``Orthotropic_model_demo_original.m``. ``Orthotropic_model_demo_original.m`` is the script directed exported from COMSOL. ``Orthotropic_model_demo.m`` is the script that will be called by MATLAB in iteration, and it is modified from ``Orthotropic_model_demo_original.m``
-6. In order to run FEMU-DIC successfully. You should not directly open MATLAB. Instead, you need to run the codes through ``COMSOL with MATLAB``, a software installed together with COMSOL.
-7. Several parameters need to be set in ``FEMU_OPEN_MAIN.m``.
+1. In order to run FEMU-DIC successfully. You should not directly open MATLAB. Instead, you need to run the codes through ``COMSOL with MATLAB``, a software installed together with COMSOL.
+2. Several parameters need to be set in ``FEMU_OPEN_MAIN.m``.
    - ``Params_FEMU.folder_Model``, the path where the MATLAB version COMSOL model being saved.
    - ``Params_FEMU.file_params_DIC``, the DIC data file or the reformated DIC data from MatchID-2D or VIC-2D.
    -  ``Params_FEMU.optim_method``, It should be either 'GN' or 'NM'. The aim is to select different optimization algorithm.
@@ -186,10 +187,10 @@ Img_Simu_0001.bmp is matching...
    -  `Params_FEMU.offset`, the offset of the origin between the two coordinate system (unit of pixels).
    -  ``R``, ``theta``, and ``L`` are the radius of the open hole, the off-axis angle of the sample and the length of the sample, respectively.
    -  ``p_Model``, the initial guess of the investigated constitutive material model parameters.
-8. Note that the COMSOL model is called in ``callComsol``.
-9. FEA displacement and strain results are saved in subfolder ``FEA_results``.
-10. If you are using ``GN`` algorithm, please check ``log.txt`` file for the parameter history.
-11. Run ``FEMU_OPEN_MAIN.m`` and wait for a while. The parameters are saved in parameter ``p_Model_optimum``. You can find it in the Workspace.
+3. Note that the COMSOL model is called in ``callComsol``.
+4. FEA displacement and strain results are saved in subfolder ``FEA_results``.
+5.  If you are using ``GN`` algorithm, please check ``log.txt`` file for the parameter history.
+6.  Run ``FEMU_OPEN_MAIN.m`` and wait for a while. The parameters are saved in parameter ``p_Model_optimum``. You can find it in the Workspace.
 
 ***
 ## Validation
@@ -199,11 +200,14 @@ We use the software to inversely identify the four orthotropic elastic parameter
 <p align="middle">
   <img src="Figure/Numerical test.jpg" height="300" />
 </p>
-<center>Figure 5. Numerical test configuration: (a) sample geometry and boundary condition, (b) the synthetic speckle pattern images.</center>
+
+<p style="text-align:center;">Figure 5. Numerical test configuration: (a) sample geometry and boundary condition, (b) the synthetic speckle pattern images.</p>
+
 <p align="middle">
   <img src="Figure/DIC results.jpg" height="300" />
 </p>
-<center>Figure 6. Strain fields measured by DIC.</center>
+<p style="text-align:center;">Figure 6. Strain fields measured by DIC.</p>
+
 
 In the inverse parameter identification, open-source DIC software, VIC-2D and MatchID-2D are used to calculate the strain fields, while GN and NM are used as the optimization algorithm, respectively. The identified parameters are given in Table 1. Different combinations of DIC software and optimization algorithm can all lead to decent estimation of the parameters. 
 
