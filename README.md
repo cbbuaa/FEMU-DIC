@@ -203,7 +203,7 @@ We use the software to inversely identify the four orthotropic elastic parameter
 <p align="middle">
   <img src="Figure/DIC results.jpg" height="300" />
 </p>
-<center>Figure 6. Numerical test configuration: (a) sample geometry and boundary condition, (b) the synthetic speckle pattern images.</center>
+<center>Figure 6. Strain fields measured by DIC.</center>
 
 In the inverse parameter identification, open-source DIC software, VIC-2D and MatchID-2D are used to calculate the strain fields, while GN and NM are used as the optimization algorithm, respectively. The identified parameters are given in Table 1. Different combinations of DIC software and optimization algorithm can all lead to decent estimation of the parameters. 
 
