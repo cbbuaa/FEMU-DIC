@@ -1,4 +1,4 @@
-function [p,Czncc,Iter,disp]=iterICGN(ImRef,ImDef,pCoord,p,Params)
+function [p,Czncc,Iter,disp]=iterICGN(ImRef,ImDef,pCoord,p,Params,pointsIndx)
 % IC-GN for first order shape function
 % Author: Bin Chen;
 % E-mail: binchen@kth.se
@@ -25,9 +25,21 @@ end
 nablafx       = gradxImR(pCoord(1)+deltaVecX,pCoord(2)+deltaVecY);
 nablafy       = gradyImR(pCoord(1)+deltaVecX,pCoord(2)+deltaVecY);
 nablaf        = [nablafx(:),nablafy(:)];
-[invH,Jacob]  = calHessian(localSub,nablaf);
 fSubset       = ImRef(pCoord(1)+deltaVecX,pCoord(2)+deltaVecY);
 fSubset       = fSubset(:);
+
+if Params.fill_boundary
+    isPixelInSubsetInROI = Params.isPixelInSubsetInROI{pointsIndx};
+    if length(isPixelInSubsetInROI) < 961
+        a = 0;
+    end
+    localSub    = localSub(isPixelInSubsetInROI,:);
+    nablaf      = nablaf(isPixelInSubsetInROI,:);
+    localSubHom = localSubHom(:,isPixelInSubsetInROI);
+    fSubset     = fSubset(isPixelInSubsetInROI);
+end
+
+[invH,Jacob]  = calHessian(localSub,nablaf);
 
 deltafVec     = fSubset-mean(fSubset(:));
 deltaf        = sqrt(sum(deltafVec.^2));
@@ -35,6 +47,8 @@ invHJacob     = invH*Jacob';
 
 warP          = Warp(p);
 thre          = 1;
+
+
 
 % iteration to estimate p
 while thre>1e-3 && Iter< Params.maxIter || Iter==0
@@ -81,5 +95,7 @@ while thre>1e-3 && Iter< Params.maxIter || Iter==0
     end
 
 end
-
+if Czncc<0.9
+    disp      = nan(1,2);
+end
 end

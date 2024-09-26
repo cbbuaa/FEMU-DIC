@@ -4,4 +4,5 @@ addpath(genpath(cd));
 %% read files
 Params = readSpeckleImageFiles;
 %% DIC matching
-DIC(Params)
+frameRate = 1;
+DIC(Params,frameRate)

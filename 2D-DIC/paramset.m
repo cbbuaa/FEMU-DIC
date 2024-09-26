@@ -5,7 +5,7 @@ function Params = paramset(Params)
 % Update: 2021-06-04
 
 %% -------------Check these parameters before usage-------------%%
-subset               = 21*[1,1];
+subset               = 21*[1,1]; % must be odd value
 Params.subset        = subset;
 if isfield(Params,'Step')
     Step = Params.Step;
@@ -15,11 +15,15 @@ end
 R                    = Step*2.5;
 Params.R_Filter      = 2;
 Order                = 1;
-strainWin            = 11*[1,1];
+strainWin            = 11*[1,1]; % must be odd value
 
 IterMethod           = 'IC-GN-RG';
 param_Plot           = 'exx'; % select from 'exx', 'eyy', 'exy', 'u', 'v'
-allRegion            = [1,2]; % Two number, 1 means rectangular, 2: polygon
+allRegion            = [1,2]; % Two number, 1 means rectangular, 2: polygon. 
+                              % We can use more thant one number, e.g. [1,2,1]. 
+                              % It means adding a rectangular region, 
+                              % followed by deleting a rectangular and polygon regions.
+fill_boundary        = 1; % 1 or 0 to fill the boundary.
 Normalization        = 1; % 1 with normalization, 0 without normalization
 maxIter              = 15; % maximum iteration number
 thre                 = 1e-3; % theroshold of iteration
@@ -45,6 +49,7 @@ fprintf('Step: %d;\n', Step);
 
 
 %% Save all results into a structure
+Params.frameRate     = 2;
 Params.fixed_seedPts = fixed_seedPts;
 Params.selectCalcuPt = 1;
 Params.thre          = thre;
@@ -64,3 +69,4 @@ Params.allRegion     = allRegion;
 Params.param_Plot    = param_Plot;
 Params.R             = R;
 Params.Order         = Order;
+Params.fill_boundary = fill_boundary;

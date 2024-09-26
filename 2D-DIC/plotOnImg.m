@@ -1,6 +1,7 @@
 function [] = plotOnImg(Params, ImDef,comptPoints, Disp, strain, varible)
 
-subplot(1,2,2);
+h1 = subplot(1,2,2);
+cla(h1);
 imagesc(repmat(uint8(ImDef),1,1,3));
 % [x, y] = ndgrid(Params.calPtX(1):Params.calPtX(end),Params.calPtY(1):Params.calPtY(end));
 % Params.Lx_Pixel = size(x,1);
@@ -9,7 +10,6 @@ imagesc(repmat(uint8(ImDef),1,1,3));
 
 x      = reshape(comptPoints(:,1)+Disp(:,1),Params.Lx,Params.Ly);
 y      = reshape(comptPoints(:,2)+Disp(:,2),Params.Lx,Params.Ly);
-
 
 
 cLevel = 32;

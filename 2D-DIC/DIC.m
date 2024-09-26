@@ -1,4 +1,4 @@
-function [] = DIC(Params)
+function [] = DIC(Params,frameRate)
 
 file_Params          = fullfile(Params.Folder,'Params.mat');
 Params.fileNum       = length(Params.fileDef_All);
@@ -14,6 +14,9 @@ if ~isfile (file_Params)
     
     
     ImRef                = double(imread(fullfile(Params.Folder,refFile)));
+    if length(size(ImRef)) == 3
+        ImRef            = double(rgb2gray(uint8(ImRef)));
+    end
     h                    = fspecial('gaussian',5,1);
     ImRef                = imfilter(ImRef,h);
     
@@ -36,10 +39,16 @@ else
     load(file_Params)
     imshow(repmat(uint8(Params.ImRef),1,1,3));
 end
+Params.frameRate = 1;
+if nargin>=2
+    Params.frameRate = frameRate;
+    save(file_Params,'Params');
+end
+
 
 
 %% Match each image
-for i = 2:Params.fileNum
+for i = 2:Params.frameRate: Params.fileNum
     %     Params0 = Params;
     Params.fileDef = Params.fileDef_All{i};
     
@@ -49,9 +58,13 @@ for i = 2:Params.fileNum
     % if the data files have been generated, skip the matching and load the
     % files
     ImDef = double(imread(fullfile(Params.Folder,Params.fileDef)));
+    if length(size(ImDef)) == 3
+        ImDef              = double(rgb2gray(uint8(ImDef)));
+    end
     if isfile (fileSave)
+        continue;
         load(fileSave);
-        %         continue;
+        
     else
         Is_indPtInROI = Params.Is_indPtInROI;
         comptPoints   = Params.comptPoints;

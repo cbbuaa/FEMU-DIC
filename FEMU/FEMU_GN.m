@@ -5,7 +5,7 @@ incrementRatio = 1/100;
 deltaP = p_Model;
 Threshold = 0.001;
 
-% Iteration
+% save data
 i = 0;
 file_log = fullfile(Params_FEMU.folder_Model,'log.txt');
 fid=fopen(file_log,'a');
@@ -16,6 +16,7 @@ for i_params = 1:numel(p_Model)
 end
 fprintf(fid,'\n');
 
+% Iteration
 while i<20 && max(abs(deltaP./p_Model))>Threshold
     
     i = i+1;
@@ -56,10 +57,11 @@ while i<20 && max(abs(deltaP./p_Model))>Threshold
             
             Strain_mess_i_File = Strain_mess(:,[1,2,i_File*3,i_File*3+1,i_File*2]);
             Disp_mess_i_File   = Disp_mess(:,[1,2,i_File*2+1,i_File*2+2]);
-%             load(Params_FEMU.file_params_DIC);
             
+            % Data point alignment and displacement difference calcualtion
             [Disp_FEA,Disp_DIC,Strain_DIC,Params_FEMU] = ...
                 CostFunction(Strain_mess_i_File,Disp_mess_i_File,DIC_data_file,Params_FEMU);
+            % Strain error calcualtion
             [Disp_error,strain_error]  = ....
                 strain_Error(Disp_FEA,Disp_DIC,Params_FEMU.Is_indPtInROI,Params_FEMU.file_params_DIC);
             
@@ -77,12 +79,15 @@ while i<20 && max(abs(deltaP./p_Model))>Threshold
         residual_all{j} = residual_j_Param;
     end
     
+    % Jacobian calculation
     for j = 1 : numel(p_Model)
         J(:,j) = [residual_all{j}-residual_all{numel(p_Model)+1}]./(incrementRatio);
     end
     
+    % Parameter updating
     deltaP = -(J'*J)^-1*J'*residual_all{numel(p_Model)+1}.*p_Model;
     p_Model = p_Model + deltaP;
 end
+
 fprintf(fid,'\n');
 fclose(fid);

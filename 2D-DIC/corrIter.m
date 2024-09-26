@@ -1,4 +1,4 @@
-function [p,Czncc,Iter,disp] = corrIter(ImRef,ImDef,pCoord,p,Params)
+function [p,Czncc,Iter,disp] = corrIter(ImRef,ImDef,pCoord,p,Params,pointsIndx)
 % Using this function, we can choose a correlation method;
 % the input Method control the used method;
 % Author: Bin Chen;
@@ -7,7 +7,7 @@ function [p,Czncc,Iter,disp] = corrIter(ImRef,ImDef,pCoord,p,Params)
 
 switch Params.IterMethod
     case {'IC-GN','IC-GN-RG'}
-        [p,Czncc,Iter,disp] = iterICGN(ImRef,ImDef,pCoord,p,Params);
+        [p,Czncc,Iter,disp] = iterICGN(ImRef,ImDef,pCoord,p,Params,pointsIndx);
     case {'IC-LM','IC-LM-RG'}
         [p,Czncc,Iter,disp] = iterICLM(ImRef,ImDef,pCoord,p,Params);
     case {'IC-GN2','IC-GN2-RG'}

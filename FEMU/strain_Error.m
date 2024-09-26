@@ -15,4 +15,3 @@ end
 
 Disp_error      = Disp_DIC-Disp_FEA_Full; % Disp error
 strain_error    = strainEstPLS(Disp_error,Params); % Strain error
-% strain_FEA      = strainEstPLS(Disp_FEA_Full,Params); % Strain error

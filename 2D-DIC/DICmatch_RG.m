@@ -25,7 +25,8 @@ while length(queue)>0 || m<=2
     
     if m==1
         Params.thre               = 1e-10;
-        [p,Czncc,Iter,disp]       = corrIter(ImRef,ImDef,pCoord,p,Params);
+        pointsIndx                = Params.IndxInitP;
+        [p,Czncc,Iter,disp]       = corrIter(ImRef,ImDef,pCoord,p,Params,pointsIndx);
         ZNCC(Params.IndxInitP,:)  = Czncc;
         outP(Params.IndxInitP,:)  = p;
         Disp(Params.IndxInitP,:)  = disp;
@@ -59,7 +60,7 @@ while length(queue)>0 || m<=2
             p(midTerm)            = p(midTerm)+p(midTerm+1)*Params.Step*ii...
                                    +p(midTerm+2)*Params.Step*jj;
             pCoord                = [comptPoints(pointsIndx,:)'; 1];
-            [p,Czncc,Iter,disp]   = corrIter(ImRef,ImDef,pCoord,p,Params);
+            [p,Czncc,Iter,disp]   = corrIter(ImRef,ImDef,pCoord,p,Params,pointsIndx);
             ZNCC(pointsIndx,:)    = Czncc;
             outP(pointsIndx,:)    = p;
             Disp(pointsIndx,:)    = disp;

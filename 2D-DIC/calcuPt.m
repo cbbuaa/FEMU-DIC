@@ -64,8 +64,13 @@ y_bound         = round(y_bound_all{1});
 boundary        = [x_bound,y_bound];
 
 %% generate a set of calculaiton points with space equal to "step"
-calPtX          = (min(x_bound)+half_subset(1)):Step:(max(x_bound)-half_subset(1));
-calPtY          = (min(y_bound)+half_subset(2)):Step:(max(y_bound)-half_subset(2));
+if Params.fill_boundary
+    calPtX          = min(x_bound)+1:Step:max(x_bound);
+    calPtY          = min(y_bound)+1:Step:max(y_bound);
+else
+    calPtX          = (min(x_bound)+half_subset(1)):Step:(max(x_bound)-half_subset(1));
+    calPtY          = (min(y_bound)+half_subset(2)):Step:(max(y_bound)-half_subset(2));
+end
 
 % number of calculation points
 Lx              = length(calPtX); % point number along x direction
@@ -73,22 +78,38 @@ Ly              = length(calPtY); % point number along y direction
 [refX,refY]     = ndgrid(calPtX,calPtY); % grid of calulation point
 
 
-isPtInROI       = inpolygon(refX(:),refY(:),...
+[isPtInROI,isPtOnROI]     = inpolygon(refX(:),refY(:),...
     polyout.Vertices(:,2),polyout.Vertices(:,1));
 
-indPtInROI      = find(isPtInROI);
+is_inROI        = isPtInROI | isPtOnROI;
+indPtInROI      = find(is_inROI);
 comptPoints     = [refX(:),refY(:)]; % the calculation points
 
 
 
 % pixels in ROI
 [x_pixel,y_pixel] = ndgrid(1:Params.sizeX,1:Params.sizeY);
-isPixelInROI      = inpolygon(x_pixel(:),y_pixel(:),...
+[isPixelInROI,isPixelOnROI]      = inpolygon(x_pixel(:),y_pixel(:),...
     polyout.Vertices(:,2),polyout.Vertices(:,1));
+isPixelInROI = isPixelInROI | isPixelOnROI;
 
 
 isPixelInROI_Mat  = reshape(isPixelInROI,[Params.sizeX,Params.sizeY]);
 % indPixelInROI     = find(isPixelInROI);
+
+if Params.fill_boundary
+    for i = 1:length(comptPoints)
+        isPixelInSubsetInROI = [];
+        if is_inROI(i)
+            pixel_in_subset       = comptPoints(i,:) + Params.localSub;
+            [isPixelInSubsetInROI, isPixelInSubsetOnROI] = inpolygon(pixel_in_subset(:,1),pixel_in_subset(:,2),...
+            polyout.Vertices(:,2),polyout.Vertices(:,1));  
+            isPixelInSubsetInROI = isPixelInSubsetInROI | isPixelInSubsetOnROI;
+        end
+        Params.isPixelInSubsetInROI{i} = find(isPixelInSubsetInROI);
+    end
+end
+
 
 
 %% the initial point
