@@ -240,4 +240,4 @@ We share the the original file to help you to practice the software. Please see 
 Please contact Bin Chen (binchen@kth.se) if you wish to contribute code/algorithms to this project, or have question or suggestion. 
 
 ## Citation
-Anyone who uses the code please cite: ``Bin Chen, Bojan Starman, Miroslav Halilovič, Lars A.Berglund, Sam Coppieters, Finite Element Model Updating for Material Model Calibration: Review and Practice Guide. (Under Review)``. If you need to redistribute the software, please keep the original author information.
+Anyone who uses the code please cite: ``Bin Chen, Bojan Starman, Miroslav Halilovič, Lars A.Berglund, Sam Coppieters, Finite Element Model Updating for Material Model Calibration: Review and Practice Guide. (Minor revision, Archives of Computational Methods in Engineering)``. If you need to redistribute the software, please keep the original author information.
