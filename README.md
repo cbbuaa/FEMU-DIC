@@ -5,7 +5,7 @@ E-mail 📧: binchen@kth.se or cbbuaa@outlook.com
 
 ## Project summary
 FEMU-DIC is an open-source finite element model updating (FEMU) software. It includes two key parts:
-- **DIC software**: The  Digital Image Correlation (DIC) software introduced here can be used **Stand-alone**. It works well 😊 for strain field measurement.
+- **DIC software**: The  Digital Image Correlation (DIC) software introduced here can be used **Stand-alone**. It works well 😊 for strain field measurement, and also is easy to use.
 - **FEMU software**.
 
 **Target users**: researchers who are interested to strain field measurement and/or inverse parameter identification, material scientists, teachers and students in solid mechanics.
