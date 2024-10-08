@@ -1,5 +1,6 @@
 # FEMU-DIC
 Author: Bin Chen
+
 E-mail 📧: binchen@kth.se or cbbuaa@outlook.com
 
 ## Project summary
