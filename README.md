@@ -86,53 +86,55 @@ The DIC software has the following major features:
 ### Usage
 1. Download this project and unzip it into a folder;
 2. The bicubic B-spline interpolation C++ MEX file has already been created. However, if you have changed the source code, please create it again.
-**On MacOS platform**
-    * Install Xcode on your mac;
-    * Type the following command in MATLAB command window;
-  ``
-            mex -v -setup C;
-            mex -v -setup C++; 
-  ``
-  
-     * Edit and save your C++ code in file `BicubicBsplineInterp.cpp`;
-     * Copy the former file to your work directory, and then type the following command in the command window:
-``
-            mex BicubicBsplineInterp.cpp
-``
-    * You will get a file `BicubicBsplineInterp.mexmaci64` in your work directory. Finally you can use it like regular MATLAB function.
 
-    **On Windows platform**
-    * Install C and C++ compiler. Here the free MinGW-w64 C/C++ complier is recommended. Please check the compatible version from [MATLAB support](https://se.mathworks.com/matlabcentral/fileexchange/52848-matlab-support-for-mingw-w64-c-c-compiler). We have confirmed that MATLAB R2019a is compatible with [MinGW-w64 V6.3.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/seh/x86_64-6.3.0-release-posix-seh-rt_v5-rev2.7z/download) on windows 10.
-     * Type the following command in MATLAB command window;
-  ``
-            mex -v -setup C;
-            mex -v -setup C++; 
-  ``
-    * Edit and save your C++ code in file `BicubicBsplineInterp.cpp`;
-    * Copy the former file to your work directory, and then type the following command in the command window:
-``
-            mex BicubicBsplineInterp.cpp
-``
-    * You will get a file `BicubicBsplineInterp.mexmaci64` in your work directory. Finally you can use it like regular MATLAB function.
-1. Before running, you need to set some **key parameters in `paramset.m`**, such as **subset size**, **step size**. The variable you want to plot is controlled by ``param_Plot``.
-2. You must pay attention on parameter **allRegion** in this script. It controls the ROI shape. It has a form of row vector with elements of 1 and/or 2. The number 1 and 2 denotes the selection of a rectangular region and a polygon region, respectively. 
+     **On MacOS platform**
+      * Install Xcode on your mac;
+      * Type the following command in MATLAB command window;
+     ``
+               mex -v -setup C;
+               mex -v -setup C++; 
+     ``
+     
+      * Edit and save your C++ code in file `BicubicBsplineInterp.cpp`;
+      * Copy the former file to your work directory, and then type the following command in the command window:
+   ``
+               mex BicubicBsplineInterp.cpp
+   ``
+      * You will get a file `BicubicBsplineInterp.mexmaci64` in your work directory. Finally you can use it like regular MATLAB function.
+
+     **On Windows platform**
+
+      * Install C and C++ compiler. Here the free MinGW-w64 C/C++ complier is recommended. Please check the compatible version from [MATLAB support](https://se.mathworks.com/matlabcentral/fileexchange/52848-matlab-support-for-mingw-w64-c-c-compiler). We have confirmed that MATLAB R2019a is compatible with [MinGW-w64 V6.3.0](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/6.3.0/threads-posix/seh/x86_64-6.3.0-release-posix-seh-rt_v5-rev2.7z/download) on windows 10.
+      * Type the following command in MATLAB command window;
+     ``
+               mex -v -setup C;
+               mex -v -setup C++; 
+     ``
+      * Edit and save your C++ code in file `BicubicBsplineInterp.cpp`;
+      * Copy the former file to your work directory, and then type the following command in the command window:
+   ``
+               mex BicubicBsplineInterp.cpp
+   ``
+      * You will get a file `BicubicBsplineInterp.mexmaci64` in your work directory. Finally you can use it like regular MATLAB function.
+3. Before running, you need to set some **key parameters in `paramset.m`**, such as **subset size**, **step size**. The variable you want to plot is controlled by ``param_Plot``.
+4. You must pay attention on parameter **allRegion** in this script. It controls the ROI shape. It has a form of row vector with elements of 1 and/or 2. The number 1 and 2 denotes the selection of a rectangular region and a polygon region, respectively. 
    For instance, we set ``allRegion = [1,2,2]``. It means we first select a rectangular region. Then two polygon regions are removed from the selected rectangular ROI. Note that when you are selecting a rectangular region, you need hold the mouse and drag it.
-3. Run `demo.m`. In the first pop-up window select one reference image, and in the second pop-up window select a deformed image or a set of deformed images. The number of elements in this vector should be more than 1. 
-4. Set whether do you want to fill the boundary in `Param.fill_boundary`. If 1, fill the boundary, or 0 is not.
-5. Select the ROIs following **Step 4**. After specifying all ROIs, you need to specify a seed points. It is recommended to put it at the place with smaller displacement.
-6. Please wait for the software to run. The running information will display on the Command Window
- ```
- Matching method: IC-GN-RG; 
-Subset size: 25 * 25;  
-Step: 5;
-Processing finished :100 % ...
-Speed: 2.038e+03 points/s
-Completed in 3.965 seconds
-Mean iteration: 1.63
-Img_Simu_0001.bmp is matching...
-```
-1. The results are saved in the same folder with the same file name but format of `.mat`;
-2. If you want to rerun DIC, you need to remove ``Params.mat`` and the result file ``*.mat`` in the image folder. If you want to rerun but keep the same parameters, then you need to remove the result file ``*.mat`` while keeping ``Params.mat``.
+5. Run `demo.m`. In the first pop-up window select one reference image, and in the second pop-up window select a deformed image or a set of deformed images. The number of elements in this vector should be more than 1. 
+6. Set whether do you want to fill the boundary in `Param.fill_boundary`. If 1, fill the boundary, or 0 is not.
+7. Select the ROIs following **Step 4**. After specifying all ROIs, you need to specify a seed points. It is recommended to put it at the place with smaller displacement.
+8. Please wait for the software to run. The running information will display on the Command Window
+    ```
+    Matching method: IC-GN-RG; 
+   Subset size: 25 * 25;  
+   Step: 5;
+   Processing finished :100 % ...
+   Speed: 2.038e+03 points/s
+   Completed in 3.965 seconds
+   Mean iteration: 1.63
+   Img_Simu_0001.bmp is matching...
+   ```
+9. The results are saved in the same folder with the same file name but format of `.mat`;
+10. If you want to rerun DIC, you need to remove ``Params.mat`` and the result file ``*.mat`` in the image folder. If you want to rerun but keep the same parameters, then you need to remove the result file ``*.mat`` while keeping ``Params.mat``.
 
 ### 🗂️ Result files
 - The results (``Left of Figure 2``) include data file for each image. They are saved as the same name as the image name but with ``.mat`` as extension. The other data file is the ``.Params.mat``, where the parameters used in DIC are saved.
@@ -168,17 +170,17 @@ Img_Simu_0001.bmp is matching...
   - The reformated data will be saved in a subfolder ``folerName/formatVICData``. All file will be saved as the same file name but in the subfolder. Besides that, some key parameter in DIC are saved in ``Params.mat`` in the same subfolder.
 4. The mesh in COMSOL should be exported with format of ``.nas``. Save it at a certain folder and remember the file path. Please rename the mesh as ``Mesh.nas``. 
 5. A key issue is the communication between COMSOL and MATLAB. To do that, we need to:
-  - Prepare the COMSOL project.
-  - Right click ``Export`` in COMSOL and export ``Data``. Choose ``solid.elogxx``, ``solid.elogxy``, and ``solid.elogyy`` in the folder. Select one more folder and export ``u``, ``v``. 
-  <p align="middle">
-    <img src="Figure/ExportDataComsol.jpg" height="300" />
-  </p>
-<p align="center"> Figure 4. Data exporting in COMSOL. </p>
+     - Prepare the COMSOL project.
+     - Right click ``Export`` in COMSOL and export ``Data``. Choose ``solid.elogxx``, ``solid.elogxy``, and ``solid.elogyy`` in the folder. Select one more folder and export ``u``, ``v``. 
+     <p align="middle">
+       <img src="Figure/ExportDataComsol.jpg" height="300" />
+     </p>
+   <p align="center"> Figure 4. Data exporting in COMSOL. </p>
 
-   - Save the COMSOL project as a MATLAB script ``.m``.
-   - Please check ``Orthotropic_model_demo.m`` carefully. You need to make some modification on this file. Please see all parameters passed through ``Params_FEMU``. You can learn how to implement this by comparing two scripts ``Orthotropic_model_demo.m`` and ``Orthotropic_model_demo_original.m``. ``Orthotropic_model_demo_original.m`` is the script directed exported from COMSOL. ``Orthotropic_model_demo.m`` is the script that will be called by MATLAB in iteration, and it is modified from ``Orthotropic_model_demo_original.m``
-1. In order to run FEMU-DIC successfully. You should not directly open MATLAB. Instead, you need to run the codes through ``COMSOL with MATLAB``, a software installed together with COMSOL.
-2. Several parameters need to be set in ``FEMU_OPEN_MAIN.m``.
+      - Save the COMSOL project as a MATLAB script ``.m``.
+      - Please check ``Orthotropic_model_demo.m`` carefully. You need to make some modification on this file. Please see all parameters passed through ``Params_FEMU``. You can learn how to implement this by comparing two scripts ``Orthotropic_model_demo.m`` and ``Orthotropic_model_demo_original.m``. ``Orthotropic_model_demo_original.m`` is the script directed exported from COMSOL. ``Orthotropic_model_demo.m`` is the script that will be called by MATLAB in iteration, and it is modified from ``Orthotropic_model_demo_original.m``
+6. In order to run FEMU-DIC successfully. You should not directly open MATLAB. Instead, you need to run the codes through ``COMSOL with MATLAB``, a software installed together with COMSOL.
+7. Several parameters need to be set in ``FEMU_OPEN_MAIN.m``.
    - ``Params_FEMU.folder_Model``, the path where the MATLAB version COMSOL model being saved.
    - ``Params_FEMU.file_params_DIC``, the DIC data file or the reformated DIC data from MatchID-2D or VIC-2D.
    -  ``Params_FEMU.optim_method``, It should be either 'GN' or 'NM'. The aim is to select different optimization algorithm.
@@ -188,10 +190,10 @@ Img_Simu_0001.bmp is matching...
    -  `Params_FEMU.offset`, the offset of the origin between the two coordinate system (unit of pixels).
    -  ``R``, ``theta``, and ``L`` are the radius of the open hole, the off-axis angle of the sample and the length of the sample, respectively.
    -  ``p_Model``, the initial guess of the investigated constitutive material model parameters.
-3. Note that the COMSOL model is called in ``callComsol``.
-4. FEA displacement and strain results are saved in subfolder ``FEA_results``.
-5.  If you are using ``GN`` algorithm, please check ``log.txt`` file for the parameter history.
-6.  Run ``FEMU_OPEN_MAIN.m`` and wait for a while. The parameters are saved in parameter ``p_Model_optimum``. You can find it in the Workspace.
+8. Note that the COMSOL model is called in ``callComsol``.
+9. FEA displacement and strain results are saved in subfolder ``FEA_results``.
+10. If you are using ``GN`` algorithm, please check ``log.txt`` file for the parameter history.
+11. Run ``FEMU_OPEN_MAIN.m`` and wait for a while. The parameters are saved in parameter ``p_Model_optimum``. You can find it in the Workspace.
 
 ***
 ## Validation
