@@ -1,5 +1,6 @@
 # FEMU-DIC
-Author: Bin Chen, Royal Institute of Technology, KTH, Sweden
+Author: Bin Chen
+Royal Institute of Technology, KTH, Sweden
 
 E-mail 📧: binchen@kth.se or cbbuaa@outlook.com
 
